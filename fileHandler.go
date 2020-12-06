@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-/*Given a path and given the path leads to a txt-file this will return the content as a string.*/
+//Given a path and given the path leads to a txt-file this will return the content as a string.
 func inputToString(path string) string  {
 
 	// Read entire file content, giving us little control but
@@ -22,4 +22,9 @@ func inputToString(path string) string  {
 //Day 6
 func InputDay6() string {
 	return inputToString("assets/day6.txt")
+}
+
+//Day 7
+func InputDay7() string {
+	return inputToString("assets/day7.txt")
 }
