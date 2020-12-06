@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"mrose.aoc/day6"
+	"mrose.de/aoc/day6"
 )
 
 //Solve the puzzle
