@@ -1,6 +1,7 @@
 package day8
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 )
@@ -8,6 +9,8 @@ import (
 var accumulator = 0
 var input string
 var pos = 0
+var runs = 0
+var parsedLines = 0
 
 //return the result
 func Solve(inputStr string) int {
@@ -34,6 +37,7 @@ func solveStar2(inputStr string) int {
 		ok = run(loopInput, true)
 		pos++
 	}
+	fmt.Printf("Runs: %d\nParsedLine: %d\n", runs, parsedLines)
 	return accumulator
 }
 
@@ -47,6 +51,7 @@ func makeLists(loopInput string) ([]string, []int) {
 //Run all instructions. If 'star2' is true 'pos' is considered and parseLine instructions are changed
 //to make the program find a way to run all the way through without using any instruction twice.
 func run(loopInput string, star2 bool) bool {
+	runs++
 	iArr, cArr := makeLists(loopInput)
 	ok := true
 	for i := 0; i < len(iArr); i++ {
@@ -77,6 +82,7 @@ func run(loopInput string, star2 bool) bool {
 
 //Parse an instruction line. If star2 is true 'jmp' and 'nop' instructions are switched
 func parseLine(line string, star2 bool) (int, int) {
+	parsedLines++
 	acc := 0
 	jmp := 0
 	if strings.Contains(line, "acc") {
