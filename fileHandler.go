@@ -28,3 +28,8 @@ func InputDay6() string {
 func InputDay7() string {
 	return inputToString("assets/day7.txt")
 }
+
+//Day 8
+func InputDay8() string {
+	return inputToString("assets/day8.txt")
+}
