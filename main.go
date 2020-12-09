@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"mrose.de/aoc/day8"
+	"mrose.de/aoc/day9"
 )
 
 //Solve the puzzle
 func main() {
-	fmt.Print(day8.Solve(InputDay8()))
+	fmt.Print(day9.Solve(InputDay9()))
 }

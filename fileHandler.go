@@ -33,3 +33,8 @@ func InputDay7() string {
 func InputDay8() string {
 	return inputToString("assets/day8.txt")
 }
+
+//Day 9
+func InputDay9() string {
+	return inputToString("assets/day9.txt")
+}
