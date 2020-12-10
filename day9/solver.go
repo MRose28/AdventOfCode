@@ -1,14 +1,14 @@
 package day9
 
 import (
-	"strconv"
+	"mrose.de/aoc/utility"
 	"strings"
 )
 
 //Get the result to check against AOC
 func Solve(input string) (result int) {
 	input = strings.TrimSuffix(input, "\n")
-	iArr := getFullArr(input)
+	iArr := utility.FullArr(input)
 	p25 := getPreamble(iArr)
 	small, big := getAdditionParts(getInvalidNumber(iArr, p25), iArr)
 	result = big + small
@@ -24,21 +24,9 @@ func getPreamble(arr []int) (p25 []int) {
 	return
 }
 
-//slice containing all number from the input text
-func getFullArr(input string) []int {
-	sArr := strings.Split(input, "\n")
-	iArr := make([]int, 0)
-	for _, value := range sArr {
-		i, _ := strconv.Atoi(value)
-		iArr = append(iArr, i)
-	}
-	return iArr
-}
-
-//the only number that does not conform to AOC rules.
+//the only number that does not conform to AOC rules. Solution to star 1
 //returns 0 if no invalid number was found
-func getInvalidNumber(arr []int, p25 []int) int {
-	value := 0
+func getInvalidNumber(arr []int, p25 []int) (value int) {
 	present := false
 	for i := 25; i < len(arr); i++ {
 		value = arr[i]
@@ -72,7 +60,7 @@ func getAdditionParts(invalidNumber int, iArr []int) (big int, small int) {
 			addArr = append(addArr, value)
 			if result == invalidNumber {
 				found = true
-				return MinMax(addArr)
+				return utility.MinMax(addArr)
 			}
 			if result > invalidNumber {
 				iArr = iArr[1:]
@@ -85,17 +73,4 @@ func getAdditionParts(invalidNumber int, iArr []int) (big int, small int) {
 	return
 }
 
-//get min and max of slice
-func MinMax(array []int) (min int, max int) {
-	max = array[0]
-	min = array[0]
-	for _, value := range array {
-		if max < value {
-			max = value
-		}
-		if min > value {
-			min = value
-		}
-	}
-	return
-}
+

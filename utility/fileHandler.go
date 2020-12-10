@@ -1,8 +1,9 @@
-package main
+package utility
 
 import (
 	"io/ioutil"
 	"log"
+	"strings"
 )
 
 //Given a path and given the path leads to a txt-file this will return the content as a string.
@@ -16,7 +17,7 @@ func inputToString(path string) string  {
 	}
 
 	// Convert []byte to string and print to screen
-	return string(content)
+	return strings.TrimSuffix(string(content), "\n")
 }
 
 //Day 6
@@ -37,4 +38,9 @@ func InputDay8() string {
 //Day 9
 func InputDay9() string {
 	return inputToString("assets/day9.txt")
+}
+
+//Day 10
+func InputDay10() string {
+	return inputToString("assets/day10.txt")
 }
