@@ -20,27 +20,32 @@ func inputToString(path string) string  {
 	return strings.TrimSuffix(string(content), "\n")
 }
 
+//Day 10
+func Input2019Day1() string {
+	return inputToString("2019/assets/day1.txt")
+}
+
 //Day 6
-func InputDay6() string {
-	return inputToString("assets/day6.txt")
+func Input2020Day6() string {
+	return inputToString("2020/assets/day6.txt")
 }
 
 //Day 7
-func InputDay7() string {
-	return inputToString("assets/day7.txt")
+func Input2020Day7() string {
+	return inputToString("2020/assets/day7.txt")
 }
 
 //Day 8
-func InputDay8() string {
-	return inputToString("assets/day8.txt")
+func Input2020Day8() string {
+	return inputToString("2020/assets/day8.txt")
 }
 
 //Day 9
-func InputDay9() string {
-	return inputToString("assets/day9.txt")
+func Input2020Day9() string {
+	return inputToString("2020/assets/day9.txt")
 }
 
 //Day 10
-func InputDay10() string {
-	return inputToString("assets/day10.txt")
+func Input2020Day10() string {
+	return inputToString("2020/assets/day10.txt")
 }

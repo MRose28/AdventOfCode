@@ -8,7 +8,7 @@ import (
 //Get the result to check against AOC
 func Solve(input string) (result int) {
 	input = strings.TrimSuffix(input, "\n")
-	iArr := utility.FullArr(input)
+	iArr := utility.IntArr(input)
 	p25 := getPreamble(iArr)
 	small, big := getAdditionParts(getInvalidNumber(iArr, p25), iArr)
 	result = big + small

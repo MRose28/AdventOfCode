@@ -16,7 +16,7 @@ func Solve(input string) (result int) {
 
 //Get input (+ 0 value and max value + 3) as sorted int array
 func prepareArray(input string) {
-	iArr = append(utility.FullArr(input), 0)
+	iArr = append(utility.IntArr(input), 0)
 	_, max := utility.MinMax(iArr)
 	iArr = append(iArr, max+3)
 	sort.Ints(iArr)

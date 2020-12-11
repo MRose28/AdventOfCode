@@ -21,7 +21,7 @@ func MinMax(array []int) (min int, max int) {
 }
 
 //slice containing all number from the input text
-func FullArr(input string) []int {
+func IntArr(input string) []int {
 	sArr := strings.Split(input, "\n")
 	iArr := make([]int, 0)
 	for _, value := range sArr {
