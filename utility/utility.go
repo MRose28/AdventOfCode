@@ -31,6 +31,11 @@ func IntArr(input string) []int {
 	return iArr
 }
 
+//slice containing all number from the input text
+func StrArr(input string) []string {
+	return strings.Split(input, "\n")
+}
+
 func Contains(s []int, searchTerm int) (contained bool) {
 	for _, value := range s {
 		if value == searchTerm {
