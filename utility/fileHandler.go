@@ -54,3 +54,8 @@ func Input2020Day10() string {
 func Input2020Day11() string {
 	return inputToString("2020/assets/day11.txt")
 }
+
+//Day 12
+func Input2020Day12() string {
+	return inputToString("2020/assets/day12.txt")
+}
