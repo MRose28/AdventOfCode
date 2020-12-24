@@ -65,7 +65,7 @@ func makeUnique(allergenMap *map[string][]string) {
 					if key != k {
 						for i, v := range (*allergenMap)[key] {
 							if v == (*allergenMap)[k][0] {
-								(*allergenMap)[key] = utility.RemoveIndex((*allergenMap)[key], i)
+								(*allergenMap)[key] = utility.RemoveIndexStr((*allergenMap)[key], i)
 							}
 						}
 					}
@@ -123,14 +123,14 @@ func findIngredientForAllergen(allergens map[string][]string, foodList []recipe)
 					if utility.ContainsString(currentFood.ingredients, ingredient) {
 						continue
 					}
-					allergens[allergen] = utility.RemoveIndex(allergens[allergen], index)
+					allergens[allergen] = utility.RemoveIndexStr(allergens[allergen], index)
 				}
 				if len(allergens[allergen]) == 1 {
 					for key := range allergens {
 						if key != allergen {
 							for i, v := range allergens[key] {
 								if v == allergens[allergen][0] {
-									allergens[key] = utility.RemoveIndex(allergens[key], i)
+									allergens[key] = utility.RemoveIndexStr(allergens[key], i)
 								}
 							}
 						}

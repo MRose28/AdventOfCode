@@ -36,7 +36,7 @@ func removeCups(input *[]string) (removedCups []string) {
 		removedCups = append(removedCups, (*input)[i])
 	}
 	for i := 1; i < 4; i++ {
-		utility.RemoveIndex(*input, 1)
+		utility.RemoveIndexStr(*input, 1)
 	}
 	tmpArr := make([]string, 0)
 	tmpArr = append(tmpArr, (*input)[:len(*input)-3]...)

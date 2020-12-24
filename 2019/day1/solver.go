@@ -8,7 +8,7 @@ var totalFuel = 0
 
 func Solve() (result int) {
 
-	iArr := utility.IntArr(utility.Input2019Day1())
+	iArr := utility.IntArr(utility.Input2019Day1(), "\n")
 	updateTotalFuel(iArr)
 	result = totalFuel
 	return

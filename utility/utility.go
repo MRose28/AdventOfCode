@@ -21,8 +21,8 @@ func MinMax(array []int) (min int, max int) {
 }
 
 //slice containing all number from the input text
-func IntArr(input string) []int {
-	sArr := strings.Split(input, "\n")
+func IntArr(input string, sep string) []int {
+	sArr := strings.Split(input, sep)
 	iArr := make([]int, 0)
 	for _, value := range sArr {
 		i, _ := strconv.Atoi(value)
@@ -54,6 +54,12 @@ func ContainsString(s []string, searchTerm string) (contained bool) {
 	return false
 }
 
-func RemoveIndex(s []string, index int) []string {
+func RemoveIndexStr(s []string, index int) []string {
 		return append(s[:index], s[index+1:]...)
+}
+
+func RemoveIndexInt(s []int, index int) []int {
+	tmpArr := make([]int, 0)
+	tmpArr = append(s[:index], s[index+1:]...)
+	return tmpArr
 }
