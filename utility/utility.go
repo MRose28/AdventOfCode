@@ -36,11 +36,24 @@ func StrArr(input string) []string {
 	return strings.Split(input, "\n")
 }
 
-func Contains(s []int, searchTerm int) (contained bool) {
+func ContainsInt(s []int, searchTerm int) (contained bool) {
 	for _, value := range s {
 		if value == searchTerm {
 			return true
 		}
 	}
 	return false
+}
+
+func ContainsString(s []string, searchTerm string) (contained bool) {
+	for _, value := range s {
+		if value == searchTerm {
+			return true
+		}
+	}
+	return false
+}
+
+func RemoveIndex(s []string, index int) []string {
+		return append(s[:index], s[index+1:]...)
 }
