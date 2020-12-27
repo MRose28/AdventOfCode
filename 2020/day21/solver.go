@@ -26,6 +26,7 @@ func Solve() (result int) {
 	ingredientsWithoutAllergens := ingredientsWithoutAllergens(allergenMap, foodList)
 	return appearanceOfIngredientsWithoutAllergens(foodList, ingredientsWithoutAllergens)
 }
+
 //return the number of appearances for ingredients without allergens
 func appearanceOfIngredientsWithoutAllergens(list []recipe, withoutAllergens []string) (result int) {
 	for _, v := range list {
@@ -37,8 +38,12 @@ func appearanceOfIngredientsWithoutAllergens(list []recipe, withoutAllergens []s
 	}
 	return
 }
+
 //find all ingredients without allergens
-func ingredientsWithoutAllergens(allergenMap map[string][]string, foodList []recipe) (ingredientsWithoutAllergen []string) {
+func ingredientsWithoutAllergens(
+	allergenMap map[string][]string, foodList []recipe,
+) (ingredientsWithoutAllergen []string) {
+
 	ingredientList := allIngredients(foodList)
 	neverContained := true
 	for _, ingredient := range ingredientList {
@@ -55,6 +60,7 @@ func ingredientsWithoutAllergens(allergenMap map[string][]string, foodList []rec
 	}
 	return
 }
+
 //remove ingredients from the allergenMap of ingredient x, if it is already uniquely identified for y
 func makeUnique(allergenMap *map[string][]string) {
 	run := true
@@ -155,7 +161,7 @@ func orderAlphabetically(m *map[string][]string) {
 	for i, v := range allergens {
 		result += (*m)[v][0]
 		if i < len(allergens)-1 {
-			result+=","
+			result += ","
 		}
 	}
 	fmt.Print(result + "\n")
@@ -203,7 +209,8 @@ func foodListFromInput(arr []string) (foodList []recipe) {
 				allergens = append(allergens, part)
 			}
 		}
-		foodList = append(foodList,
+		foodList = append(
+			foodList,
 			recipe{
 				ingredients: ingredients,
 				allergens:   allergens,

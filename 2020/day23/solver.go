@@ -1,131 +1,122 @@
 package day23
 
 import (
+	"fmt"
 	"mrose.de/aoc/utility"
 	"strconv"
-	"strings"
 )
 
+var current int
+var destination int
+var circularList map[int]int
+var max = 1000000
+var turns = 10000000
+
 func Solve() (result int) {
-	inputArr := make([]string, 0)
-	inputArr = strings.Split("364289715", "")
-	//increaseInputArr(&inputArr)
-	result = runTheGame(inputArr)
+	inputArr := utility.IntArr("364289715", "")
+	current = inputArr[0]
+	circularList = createCircularList(inputArr, max)
+	play(turns)
+	result = getResult()
 	return
 }
 
-func increaseInputArr(input *[]string) {
-	for i := 10; i <= 1000000; i++ {
-		*input = append(*input, strconv.Itoa(i))
+func getResultStar1() {
+	result := ""
+	current = 1
+	for i := 1; i < max; i++ {
+		result += strconv.Itoa(circularList[current])
+		current = circularList[current]
 	}
+	fmt.Printf("\n%s", result)
 }
 
-func runTheGame(str []string) (result int) {
-	for i := 0; i < 100; i++ {
-		removedCups := removeCups(&str)
-		destination := selectDestination(str)
-		reAddCups(&str, destination, removedCups)
-		newOrder(&str)
-	}
-	result, _ = strconv.Atoi(getResult(str))
+func getResult() (result int) {
+	current = 1
+	value1 := circularList[current]
+	value2 := circularList[value1]
+	result = value1 * value2
+
 	return
 }
 
-func removeCups(input *[]string) (removedCups []string) {
-	for i := 1; i < 4; i++ {
-		removedCups = append(removedCups, (*input)[i])
+//A map in which the key always points to the next value and the last value (highest key value) points back to the first value
+func createCircularList(inValues []int, size int) (result map[int]int) {
+	result = make(map[int]int, size)
+	for i, v := range inValues {
+		if i != len(inValues)-1 {
+			result[v] = inValues[i+1]
+		} else {
+			result[v] = inValues[0]
+		}
 	}
-	for i := 1; i < 4; i++ {
-		utility.RemoveIndexStr(*input, 1)
+
+	if len(inValues) < size {
+		result[inValues[len(inValues)-1]] = len(inValues) + 1
+		for i := len(inValues) + 1; i < size; i++ {
+			result[i] = i + 1
+		}
+		result[size] = inValues[0]
 	}
-	tmpArr := make([]string, 0)
-	tmpArr = append(tmpArr, (*input)[:len(*input)-3]...)
-	*input = tmpArr
 	return
 }
 
-func selectDestination(input []string) (destination string) {
-	current, _ := strconv.Atoi(input[0])
-	c := 1
-	for {
-		destination = strconv.Itoa(current - c)
-		if current-c < 1 {
-			destination = inputMax(input)
+func play(turns int) {
+	for i := 0; i < turns; i++ {
+		//The crab picks up the three cups that are immediately clockwise of the current cup. They are removed from the
+		//circle; cup spacing is adjusted as necessary to maintain the circle.
+		first, second, third := removeCups()
+		//The crab selects a destination cup: the cup with a label equal to the current cup's label minus one.
+		//If this would select one of the cups that was just picked up, the crab will keep subtracting one
+		//until it finds a cup that wasn't just picked up. If at any point in this process the value goes below the
+		//lowest value on any cup's label, it wraps around to the highest value on any cup's label instead.
+		selectDestination(first, second, third)
+
+		//The crab places the cups it just picked up so that they are immediately clockwise of the destination cup.
+		//They keep the same order as when they were picked up.
+		insertCups(first, third)
+
+		//The crab selects a new current cup: the cup which is immediately clockwise of the current cup.
+		newCurrent()
+	}
+
+}
+
+func insertCups(first int, third int) {
+	circularList[current] = circularList[third]
+	circularList[third] = circularList[destination]
+	circularList[destination] = first
+}
+
+func removeCups() (first int, second int, third int) {
+	first = next()
+	second = circularList[first]
+	third = circularList[second]
+	return
+}
+
+func selectDestination(first, second, third int) {
+	tmpCurr := current - 1
+	tmpMax := max
+	for tmpCurr == first || tmpCurr == second || tmpCurr == third || tmpCurr < 1 {
+		tmpCurr--
+		if tmpCurr < 1 {
+			for tmpMax == first || tmpMax == second || tmpMax == third {
+				tmpMax--
+			}
+			destination = tmpMax
 			return
 		}
-		if utility.ContainsString(input, destination) {
-			return
-		}
-		c++
 	}
+	destination = tmpCurr
 }
 
-func inputMax(input []string) (maxStr string) {
-	max := 0
-	for _, v := range input {
-		value, _ := strconv.Atoi(v)
-		if value > max {
-			max = value
-		}
-	}
-	maxStr = strconv.Itoa(max)
-	return
+func newCurrent() {
+	current = next()
 }
 
-func reAddCups(input *[]string, destination string, removedCups []string) {
-	destinationIndex := 0
-	tmpArr := make([]string, 0)
-	for i, v := range *input {
-		if v == destination {
-			destinationIndex = i
-		}
-	}
-	tmpArr = append(tmpArr, (*input)[:destinationIndex+1]...)
-	tmpArr = append(tmpArr, removedCups...)
-	tmpArr = append(tmpArr, (*input)[destinationIndex+1:]...)
-	*input = tmpArr
-}
-
-func newOrder(input *[]string) {
-	tmpArr := make([]string, 0)
-	tmpArr = append(tmpArr, (*input)[1:]...)
-	tmpArr = append(tmpArr, (*input)[0])
-	*input = tmpArr
-}
-//Result part 1
-func getResult(input []string) (result string) {
-	indexOne := 0
-	for i, v := range input {
-		if v == strconv.Itoa(1) {
-			indexOne = i
-			break
-		}
-	}
-	if indexOne != len(input)-1 {
-		tmpArray := make([]string, 0)
-		tmpArray = append(tmpArray, input[indexOne:]...)
-		tmpArray = append(tmpArray, input[:indexOne]...)
-		input = tmpArray
-	}
-	for _, v := range input {
-		if v != strconv.Itoa(1) {
-			result += v
-		}
-	}
-	return
-}
-
-func getResultPart2(input []string) (result int) {
-	indexOne := 0
-	for i, v := range input {
-		if v=="1" {
-			indexOne = i
-		}
-	}
-	value1, _ := strconv.Atoi(input[indexOne+1])
-	value2, _ := strconv.Atoi(input[indexOne+2])
-	result = value1 *  value2
-	return
+func next() int {
+	return circularList[current]
 }
 
 /*

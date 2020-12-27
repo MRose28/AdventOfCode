@@ -39,15 +39,15 @@ func play(p1 *player, p2 *player) (winner player) {
 
 func combat(p1 *player, p2 *player) {
 	if (*p1).handCards[0] > (*p2).handCards[0] {
-		(*p1).handCards = append((*p1).handCards,(*p1).handCards[0])
-		(*p1).handCards = append((*p1).handCards,(*p2).handCards[0])
-		(*p1).handCards=utility.RemoveIndexInt((*p1).handCards, 0)
-		(*p2).handCards=utility.RemoveIndexInt((*p2).handCards, 0)
+		(*p1).handCards = append((*p1).handCards, (*p1).handCards[0])
+		(*p1).handCards = append((*p1).handCards, (*p2).handCards[0])
+		(*p1).handCards = utility.RemoveIndexInt((*p1).handCards, 0)
+		(*p2).handCards = utility.RemoveIndexInt((*p2).handCards, 0)
 	} else {
-		(*p2).handCards = append((*p2).handCards,(*p2).handCards[0])
-		(*p2).handCards = append((*p2).handCards,(*p1).handCards[0])
-		(*p1).handCards=utility.RemoveIndexInt((*p1).handCards, 0)
-		(*p2).handCards=utility.RemoveIndexInt((*p2).handCards, 0)
+		(*p2).handCards = append((*p2).handCards, (*p2).handCards[0])
+		(*p2).handCards = append((*p2).handCards, (*p1).handCards[0])
+		(*p1).handCards = utility.RemoveIndexInt((*p1).handCards, 0)
+		(*p2).handCards = utility.RemoveIndexInt((*p2).handCards, 0)
 	}
 }
 

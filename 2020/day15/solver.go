@@ -14,7 +14,7 @@ func newSpokenNumber(value int, position int) *priorNumber {
 }
 
 func Solve() (result int) {
-	input := []int{19,0,5,1,10,13}
+	input := []int{19, 0, 5, 1, 10, 13}
 	target := 300000000
 	result = countToTarget(input, target)
 
@@ -59,4 +59,3 @@ func countToTarget(numbers []int, targetNumber int) (result int) {
 		position++
 	}
 }
-

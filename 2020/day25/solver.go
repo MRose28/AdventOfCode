@@ -2,24 +2,22 @@ package day25
 
 //input card/door 8335663/8614349
 //example 5764801 -> loopSize 8, 17807724 -> loopSize 11
-var cardPK = 8335663
-var doorPK = 8614349
+const cardPublicKey = 8335663
+const doorPublicKey = 8614349
 
 func Solve() (result int) {
 	var cardSecretLoopSize int
 	var doorSecretLoopSize int
-	cardSecretLoopSize, doorSecretLoopSize = findLoopSizes()
-	cardKey := encryptionKey(doorPK, cardSecretLoopSize)
-	doorKey := encryptionKey(cardPK, doorSecretLoopSize)
-	if cardKey == doorKey {
-		result = cardKey
+	cardSecretLoopSize = loopSize(cardPublicKey)
+	doorSecretLoopSize = loopSize(doorPublicKey)
+	cardEncryptionKey := encryptionKey(doorPublicKey, cardSecretLoopSize)
+	doorEncryptionKey := encryptionKey(cardPublicKey, doorSecretLoopSize)
+	if cardEncryptionKey == doorEncryptionKey {
+		result = cardEncryptionKey
 	}
 	return
 }
 
-func findLoopSizes() (int, int) {
-	return loopSize(cardPK), loopSize(doorPK)
-}
 //find loop size for public key
 func loopSize(pk int) (loopSize int) {
 	loopSize = 0
@@ -34,6 +32,7 @@ func loopSize(pk int) (loopSize int) {
 		loopSize++
 	}
 }
+
 //calculate encryption key
 func encryptionKey(subjectNumber int, loopSize int) (encryptionKey int) {
 	encryptionKey = 1
