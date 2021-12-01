@@ -8,14 +8,14 @@ import (
 
 var current int
 var destination int
-var circularList map[int]int
+var cups map[int]int
 var max = 1000000
 var turns = 10000000
 
 func Solve() (result int) {
 	inputArr := utility.IntArr("364289715", "")
 	current = inputArr[0]
-	circularList = createCircularList(inputArr, max)
+	cups = createCircularList(inputArr, max)
 	play(turns)
 	result = getResult()
 	return
@@ -25,16 +25,16 @@ func getResultStar1() {
 	result := ""
 	current = 1
 	for i := 1; i < max; i++ {
-		result += strconv.Itoa(circularList[current])
-		current = circularList[current]
+		result += strconv.Itoa(cups[current])
+		current = cups[current]
 	}
 	fmt.Printf("\n%s", result)
 }
 
 func getResult() (result int) {
 	current = 1
-	value1 := circularList[current]
-	value2 := circularList[value1]
+	value1 := cups[current]
+	value2 := cups[value1]
 	result = value1 * value2
 
 	return
@@ -83,15 +83,15 @@ func play(turns int) {
 }
 
 func insertCups(first int, third int) {
-	circularList[current] = circularList[third]
-	circularList[third] = circularList[destination]
-	circularList[destination] = first
+	cups[current] = cups[third]
+	cups[third] = cups[destination]
+	cups[destination] = first
 }
 
 func removeCups() (first int, second int, third int) {
 	first = next()
-	second = circularList[first]
-	third = circularList[second]
+	second = cups[first]
+	third = cups[second]
 	return
 }
 
@@ -116,7 +116,7 @@ func newCurrent() {
 }
 
 func next() int {
-	return circularList[current]
+	return cups[current]
 }
 
 /*

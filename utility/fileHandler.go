@@ -85,6 +85,11 @@ func Input2020Day17() string {
 	return InputToString("2020/assets/day17.txt")
 }
 
+// Day 18
+func Input2020Day18() string {
+	return InputToString("2020/assets/day18.txt")
+}
+
 //Day 21
 func Input2020Day21() string {
 	return InputToString("2020/assets/day21.txt")
@@ -93,4 +98,9 @@ func Input2020Day21() string {
 //Day 22
 func Input2020Day22() string {
 	return InputToString("2020/assets/day22.txt")
+}
+
+//Day 1
+func Input2021Day1() string {
+	return InputToString("2021/assets/day1.txt")
 }
