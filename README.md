@@ -1,2 +1,3 @@
 # AdventOfCode2020
-Solutions for AOC2020. Trying Go
+Solutions for AOC
+Mostly go
