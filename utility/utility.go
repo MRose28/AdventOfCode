@@ -33,7 +33,31 @@ func IntArr(input string, sep string) []int {
 
 //slice containing all number from the input text
 func StrArr(input string) []string {
-	return strings.Split(input, "\n")
+	return StrArrCustom(input, "\n")
+}
+
+//slice containing all number from the input text
+func StrArrCustom(input string, separator string) []string {
+	return strings.Split(input, separator)
+}
+
+//slices have to have even entry length.
+func CounterMap(inputArr []string, rowLength int) map[int]int {
+	result := make(map[int]int)
+
+	for i := 0; i < rowLength; i++ {
+		result[i] = 0
+	}
+
+	for _, v := range inputArr {
+		for i := 0; i < rowLength; i++ {
+			if IntArr(v, "")[i] == 1 {
+				result[i] += 1
+			}
+		}
+	}
+
+	return result
 }
 
 func ContainsInt(s []int, searchTerm int) (contained bool) {
@@ -55,7 +79,7 @@ func ContainsString(s []string, searchTerm string) (contained bool) {
 }
 
 func RemoveIndexStr(s []string, index int) []string {
-		return append(s[:index], s[index+1:]...)
+	return append(s[:index], s[index+1:]...)
 }
 
 func RemoveIndexInt(s []int, index int) []int {
