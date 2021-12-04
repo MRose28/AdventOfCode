@@ -27,7 +27,6 @@ func Solve() (result int) {
 
 func (g *Game) Play() (result int) {
 	bingoBoard := &Board{}
-	lastValue := ""
 	for _, s := range g.drawList {
 		for _, board := range g.Boards {
 			for _, value := range board.Values {
