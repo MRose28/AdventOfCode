@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"mrose.de/aoc/2021/day4"
+	"mrose.de/aoc/2021/day5"
 	"time"
 )
 //Solve the puzzle
 func main() {
 	defer elapsed("calculation")()
-	result := day4.Solve()
+	result := day5.Solve()
 	fmt.Printf("\n\n%d\n\n", result)
 }
 
