@@ -1,19 +1,28 @@
 package day7
 
 import (
-	"fmt"
 	"mrose.de/aoc/utility"
 )
 
 func Solve() (result int) {
 	input := utility.IntArr(utility.Input2021Day7(), ",")
 
-	diffMap := NewDiffMap(input)
-	position, diff := findPosition(diffMap)
+	fuelMap := NewFuelMap(input)
 
-	fmt.Printf("Pos %v\nDiff %v", position, diff)
+	return getSmallest(fuelMap)
+}
 
-	return int(diff * float64(len(input)))
+func getSmallest(fuelMap map[int]int) (result int) {
+	for _, v := range fuelMap {
+		if result == 0 {
+			result = v
+			continue
+		}
+		if v<result {
+			result = v
+		}
+	}
+	return
 }
 
 func findPosition(diffMap map[int]float64) (result int, diff float64) {
@@ -49,14 +58,15 @@ func NewDiffMap(input []int) (diffMap map[int]float64) {
 func NewFuelMap(input []int) (diffMap map[int]int) {
 	_, max := utility.MinMax(input)
 	diffMap = make(map[int]int, 0)
-	for i := 0; i < max; i++ {
+	for i := 0; i <= max; i++ {
 		fuelBurnt := 0
 		for _, v := range input {
 			min, max := utility.MinMax([]int{i, v})
 			fuelIncrease := 0
-			for j := min; j <max ; j++ {
+			for j := min; j < max; j++ {
 				fuelBurnt++
 				fuelBurnt += fuelIncrease
+				fuelIncrease++
 			}
 		}
 		diffMap[i] = fuelBurnt
