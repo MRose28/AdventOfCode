@@ -31,16 +31,16 @@ func (l *LanternFish) reset() {
 func Solve() (result int) {
 	input := utility.IntArr(utility.Input2021Day6(), ",")
 	fishArr := getOriginalFish(input)
-	fishArrAfterGrowth := simulateGrowth(fishArr, 80)
-	return len(fishArrAfterGrowth)
+	//fishArrAfterGrowth := simulateGrowth(fishArr, 80)
+	return Part2(fishArr, 256)
 }
 
 func simulateGrowth(arr []*LanternFish, days int) []*LanternFish {
 	var fish *LanternFish
 	for i := 0; i < days; i++ {
-		for i := len(arr)-1; i >= 0 ; i-- {
+		for i := len(arr) - 1; i >= 0; i-- {
 			fish = arr[i]
-			if fish.Timer==0 {
+			if fish.Timer == 0 {
 				arr = append(arr, NewLanternFish())
 				fish.reset()
 				continue
@@ -58,4 +58,35 @@ func getOriginalFish(input []int) []*LanternFish {
 		resultArr = append(resultArr, StartingLanternFish(v))
 	}
 	return resultArr
+}
+
+func Part2(fishArr []*LanternFish, days int) (result int) {
+	fishMap := NewFishMap(fishArr)
+	newFish := 0
+	for day := 0; day < days; day++ {
+		newFish = fishMap[0]
+		fishMap[0] = 0
+		for key := 1; key < 9; key++ {
+			fishMap[key-1] += fishMap[key]
+			fishMap[key] = 0
+		}
+		fishMap[8] += newFish
+		fishMap[6] += newFish
+	}
+	return fishCount(fishMap)
+}
+
+func fishCount(fishMap map[int]int) (result int) {
+	for i := 0; i < 9; i++ {
+		result += fishMap[i]
+	}
+	return
+}
+
+func NewFishMap(arr []*LanternFish) (fishMap map[int]int) {
+	fishMap = make(map[int]int, 0)
+	for _, fish := range arr {
+		fishMap[fish.Timer]++
+	}
+	return
 }
