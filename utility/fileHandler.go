@@ -124,3 +124,24 @@ func Input2021Day4() string {
 func Input2021Day5() string {
 	return InputToString("2021/assets/day5.txt")
 }
+
+func Input2021Day6() string {
+	return InputToString("2021/assets/day6.txt")
+}
+
+func Input2021Day7() string {
+	return InputToString("2021/assets/day7.txt")
+}
+
+
+func Input2021Day8() string {
+	return InputToString("2021/assets/day8.txt")
+}
+
+func Input2021Day9() string {
+	return InputToString("2021/assets/day9.txt")
+}
+
+func Input2021Day10() string {
+	return InputToString("2021/assets/day10.txt")
+}
