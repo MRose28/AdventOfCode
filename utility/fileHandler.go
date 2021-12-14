@@ -153,3 +153,7 @@ func Input2021Day11() string {
 func Input2021Day12() string {
 	return InputToString("2021/assets/day12.txt")
 }
+
+func Input2021Day14() string {
+	return InputToString("2021/assets/day14.txt")
+}
