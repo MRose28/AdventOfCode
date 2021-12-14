@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	dayToSolve "mrose.de/aoc/2021/day11"
+	dayToSolve "mrose.de/aoc/2021/day12"
 	"time"
 )
 //Solve the puzzle
