@@ -60,7 +60,7 @@ func NewConnections() []*WireConnection {
 
 func Solve() (result int) {
 
-	input := utility.StrArr(utility.Input2021Day8())
+	input := utility.StrArr(utility.Input(2021, 8))
 
 	displayList := parseInput(input)
 
@@ -86,10 +86,14 @@ func parseInput(input []string) (displayList []*Display) {
 		inputValues := make([]string, 0)
 		outputValues := make([]string, 0)
 		for _, value := range strings.Split(strings.Split(line, "|")[0], " ") {
-			inputValues = append(inputValues, value)
+			if value!="" {
+				inputValues = append(inputValues, value)
+			}
 		}
 		for _, value := range strings.Split(strings.Split(line, "|")[1], " ") {
-			outputValues = append(outputValues, value)
+			if value!="" {
+				outputValues = append(outputValues, value)
+			}
 		}
 		displayList = append(displayList, NewDisplay(inputValues, outputValues))
 	}

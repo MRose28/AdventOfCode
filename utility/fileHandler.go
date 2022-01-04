@@ -1,6 +1,7 @@
 package utility
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
 	"strings"
@@ -13,7 +14,7 @@ func InputToString(path string) string  {
 	// making it very simple. No need to close the file.
 	content, err := ioutil.ReadFile(path)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("could not read file. \npath: %v\nerror: %e", path, err)
 	}
 
 	// Convert []byte to string and print to screen
@@ -156,4 +157,8 @@ func Input2021Day12() string {
 
 func Input2021Day14() string {
 	return InputToString("2021/assets/day14.txt")
+}
+
+func Input(year int, day int) string {
+	return InputToString(fmt.Sprintf("%v/assets/day%v.txt", year, day))
 }
