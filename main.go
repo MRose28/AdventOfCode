@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	dayToSolve "mrose.de/aoc/2021/day13"
+	dayToSolve "mrose.de/aoc/2022/day1"
 	"time"
 )
-//Solve the puzzle
+
+// Solve the puzzle
 func main() {
 	defer elapsed("calculation")()
 	result := dayToSolve.Solve()

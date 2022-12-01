@@ -89,8 +89,8 @@ func fold(dots []*Dot, instructions []*Instruction) []*Dot {
 	return dots
 }
 
-func foldLeft(dots []*Dot, instruction *Instruction) []*Dot {
-	dotsFolded := make([]*Dot, 0)
+func foldLeft(dots []*Dot, instruction *Instruction) (dotsFolded []*Dot) {
+	dotsFolded = make([]*Dot, 0)
 	dotsRemove := make([]*Dot, 0)
 
 	for _, dot := range dots {
@@ -122,11 +122,11 @@ func foldLeft(dots []*Dot, instruction *Instruction) []*Dot {
 		}
 	}
 	dotsFolded = append(dotsFolded, newDots...)
-	return dotsFolded
+	return
 }
 
-func foldUp(dots []*Dot, instruction *Instruction) []*Dot {
-	dotsFolded := make([]*Dot, 0)
+func foldUp(dots []*Dot, instruction *Instruction) (dotsFolded []*Dot) {
+	dotsFolded = make([]*Dot, 0)
 	dotsRemove := make([]*Dot, 0)
 
 	for _, dot := range dots {
@@ -156,7 +156,7 @@ func foldUp(dots []*Dot, instruction *Instruction) []*Dot {
 			})
 		}
 	}
-	return dotsFolded
+	return
 }
 
 func parseInstructions(s string) (instructions []*Instruction) {
