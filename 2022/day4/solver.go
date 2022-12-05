@@ -17,6 +17,7 @@ func Solve() (result int) {
 	input := utility.StrArr(utility.Input(2022, 4))
 	groups := groupUp(input)
 	result = overlapping(groups)
+
 	return
 }
 
@@ -35,6 +36,7 @@ func overlapping(groups []group) (score int) {
 			score++
 		}
 	}
+
 	return
 }
 
@@ -81,5 +83,6 @@ func groupUp(input []string) []group {
 			groups = append(groups, elves)
 		}
 	}
+
 	return groups
 }
