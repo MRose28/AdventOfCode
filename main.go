@@ -2,15 +2,15 @@ package main
 
 import (
 	"fmt"
-	dayToSolve "mrose.de/aoc/2022/day7"
+	dayToSolve "mrose.de/aoc/2022/day8"
 	"time"
 )
 
 // Solve the puzzle
 func main() {
 	defer elapsed("calculation")()
-	result := dayToSolve.Solve()
-	fmt.Printf("\n\n%d\n\n", result)
+	part1, part2 := dayToSolve.Solve()
+	fmt.Printf("\n\n%d\n\n%d\n\n", part1, part2)
 }
 
 func elapsed(what string) func() {
