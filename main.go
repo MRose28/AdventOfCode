@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	dayToSolve "mrose.de/aoc/2022/day8"
+	dayToSolve "mrose.de/aoc/2022/day9"
 	"time"
 )
 

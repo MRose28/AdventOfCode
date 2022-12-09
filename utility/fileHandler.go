@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-//Given a path and given the path leads to a txt-file this will return the content as a string.
-func InputToString(path string) string  {
+// Given a path and given the path leads to a txt-file this will return the content as a string.
+func InputToString(path string) string {
 
 	// Read entire file content, giving us little control but
 	// making it very simple. No need to close the file.
@@ -134,7 +134,6 @@ func Input2021Day7() string {
 	return InputToString("2021/assets/day7.txt")
 }
 
-
 func Input2021Day8() string {
 	return InputToString("2021/assets/day8.txt")
 }
@@ -161,4 +160,8 @@ func Input2021Day14() string {
 
 func Input(year int, day int) string {
 	return InputToString(fmt.Sprintf("%v/assets/day%v.txt", year, day))
+}
+
+func TestInput(year int, day int) string {
+	return InputToString(fmt.Sprintf("%v/assets/day%v_test.txt", year, day))
 }
