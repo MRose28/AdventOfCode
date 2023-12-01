@@ -5,8 +5,8 @@ import (
 	"strings"
 )
 
-//get min and max of slice
-func MinMax(array []int) (min int, max int) {
+// get min and max of slice
+func MinMaxArr(array []int) (min int, max int) {
 	max = array[0]
 	min = array[0]
 	for _, value := range array {
@@ -20,7 +20,14 @@ func MinMax(array []int) (min int, max int) {
 	return
 }
 
-//slice containing all number from the input text
+func MinMax(a, b int) (min, max int) {
+	if a > b {
+		return b, a
+	}
+	return a, b
+}
+
+// slice containing all number from the input text
 func IntArr(input string, sep string) []int {
 	sArr := strings.Split(input, sep)
 	iArr := make([]int, 0)
@@ -31,17 +38,17 @@ func IntArr(input string, sep string) []int {
 	return iArr
 }
 
-//slice containing all number from the input text
+// slice containing all number from the input text
 func StrArr(input string) []string {
 	return StrArrCustom(input, "\n")
 }
 
-//slice containing all number from the input text
+// slice containing all number from the input text
 func StrArrCustom(input string, separator string) []string {
 	return strings.Split(input, separator)
 }
 
-//slices have to have even entry length.
+// slices have to have even entry length.
 func CounterMap(inputArr []string, rowLength int) map[int]int {
 	result := make(map[int]int)
 

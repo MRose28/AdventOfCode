@@ -5,7 +5,7 @@ import (
 	"strings"
 )
 
-//Get the result to check against AOC
+// Get the result to check against AOC
 func Solve(input string) (result int) {
 	input = strings.TrimSuffix(input, "\n")
 	iArr := utility.IntArr(input, "\n")
@@ -15,7 +15,7 @@ func Solve(input string) (result int) {
 	return
 }
 
-//get the 25 number preamble from the input text as slice of int
+// get the 25 number preamble from the input text as slice of int
 func getPreamble(arr []int) (p25 []int) {
 	p25 = make([]int, 0)
 	for i := 0; i < 25; i++ {
@@ -24,8 +24,8 @@ func getPreamble(arr []int) (p25 []int) {
 	return
 }
 
-//the only number that does not conform to AOC rules. Solution to star 1
-//returns 0 if no invalid number was found
+// the only number that does not conform to AOC rules. Solution to star 1
+// returns 0 if no invalid number was found
 func getInvalidNumber(arr []int, p25 []int) (value int) {
 	present := false
 	for i := 25; i < len(arr); i++ {
@@ -49,7 +49,7 @@ func getInvalidNumber(arr []int, p25 []int) (value int) {
 	return 0
 }
 
-//get min and max numbers of the slice that sums up to the invalid number
+// get min and max numbers of the slice that sums up to the invalid number
 func getAdditionParts(invalidNumber int, iArr []int) (big int, small int) {
 	result := 0
 	addArr := make([]int, 0)
@@ -60,7 +60,7 @@ func getAdditionParts(invalidNumber int, iArr []int) (big int, small int) {
 			addArr = append(addArr, value)
 			if result == invalidNumber {
 				found = true
-				return utility.MinMax(addArr)
+				return utility.MinMaxArr(addArr)
 			}
 			if result > invalidNumber {
 				iArr = iArr[1:]
@@ -72,5 +72,3 @@ func getAdditionParts(invalidNumber int, iArr []int) (big int, small int) {
 	}
 	return
 }
-
-

@@ -18,7 +18,7 @@ func getSmallest(fuelMap map[int]int) (result int) {
 			result = v
 			continue
 		}
-		if v<result {
+		if v < result {
 			result = v
 		}
 	}
@@ -42,12 +42,12 @@ func findPosition(diffMap map[int]float64) (result int, diff float64) {
 }
 
 func NewDiffMap(input []int) (diffMap map[int]float64) {
-	_, max := utility.MinMax(input)
+	_, max := utility.MinMaxArr(input)
 	diffMap = make(map[int]float64, 0)
 	for i := 0; i < max; i++ {
 		diffSum := 0
 		for _, v := range input {
-			min, max := utility.MinMax([]int{i, v})
+			min, max := utility.MinMaxArr([]int{i, v})
 			diffSum += max - min
 		}
 		diffMap[i] = float64(diffSum) / float64(len(input))
@@ -56,12 +56,12 @@ func NewDiffMap(input []int) (diffMap map[int]float64) {
 }
 
 func NewFuelMap(input []int) (diffMap map[int]int) {
-	_, max := utility.MinMax(input)
+	_, max := utility.MinMaxArr(input)
 	diffMap = make(map[int]int, 0)
 	for i := 0; i <= max; i++ {
 		fuelBurnt := 0
 		for _, v := range input {
-			min, max := utility.MinMax([]int{i, v})
+			min, max := utility.MinMaxArr([]int{i, v})
 			fuelIncrease := 0
 			for j := min; j < max; j++ {
 				fuelBurnt++

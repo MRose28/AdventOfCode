@@ -14,17 +14,17 @@ func Solve(input string) (result int) {
 	return
 }
 
-//Get input (+ 0 value and max value + 3) as sorted int array
+// Get input (+ 0 value and max value + 3) as sorted int array
 func prepareArray(input string) {
 	iArr = append(utility.IntArr(input, "\n"), 0)
-	_, max := utility.MinMax(iArr)
+	_, max := utility.MinMaxArr(iArr)
 	iArr = append(iArr, max+3)
 	sort.Ints(iArr)
 }
 
-//Find all possibilities of using the adapters. If an adapter can be changed all changes of later elements in the
-//array have to be considered, so this function has to be used recursively for each element that is positioned later
-//than your current position.
+// Find all possibilities of using the adapters. If an adapter can be changed all changes of later elements in the
+// array have to be considered, so this function has to be used recursively for each element that is positioned later
+// than your current position.
 func possibilities(pos int) (result int) {
 	//reached the end. nothing to do anymore
 	if pos == len(iArr)-1 {
@@ -52,7 +52,7 @@ func possibilities(pos int) (result int) {
 	return
 }
 
-//Solution Star 1
+// Solution Star 1
 func Result(arr []int) (result int) {
 	prev := 0
 	jolt1 := 0

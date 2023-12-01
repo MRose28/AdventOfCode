@@ -39,7 +39,7 @@ func findLineCoordinates(lines []*Line, diagonals []*Line) (result int) {
 func part1(counterMap map[Coordinate]int, lines []*Line) map[Coordinate]int {
 	for _, line := range lines {
 		if line.Start.X == line.End.X && line.Start.Y != line.End.Y {
-			min, max := utility.MinMax([]int{line.Start.Y, line.End.Y})
+			min, max := utility.MinMaxArr([]int{line.Start.Y, line.End.Y})
 			for i := min; i <= max; i++ {
 				c := Coordinate{
 					X: line.Start.X,
@@ -48,7 +48,7 @@ func part1(counterMap map[Coordinate]int, lines []*Line) map[Coordinate]int {
 				counterMap[c]++
 			}
 		} else if line.Start.Y == line.End.Y && line.Start.X != line.End.X {
-			min, max := utility.MinMax([]int{line.Start.X, line.End.X})
+			min, max := utility.MinMaxArr([]int{line.Start.X, line.End.X})
 			for i := min; i <= max; i++ {
 				c := Coordinate{
 					X: i,
@@ -102,7 +102,7 @@ func part2(counterMap map[Coordinate]int, diagonals []*Line) map[Coordinate]int 
 				counterMap[c]++
 			}
 		} else if line.Start.X == line.Start.Y && line.End.X == line.End.Y {
-			min, max := utility.MinMax([]int{line.Start.X, line.End.X})
+			min, max := utility.MinMaxArr([]int{line.Start.X, line.End.X})
 			for i := min; i <= max; i++ {
 				c := Coordinate{
 					X: i,
