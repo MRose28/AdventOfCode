@@ -32,7 +32,7 @@ type minMax struct {
 
 var fieldList []field
 
-//Min and max value for 1 rule have to fit one category
+// Min and max value for 1 rule have to fit one category
 func initializeFieldMap(tickets []ticket, rules []rule) {
 	fieldList = make([]field, 0)
 	createFieldList(tickets, rules)
@@ -294,7 +294,7 @@ Each ticket is represented by a single line of comma-separated values. The value
 '--------------------------------------------------------'
 Here, ? represents text in a language you don't understand. This ticket might be represented as 101,102,103,104,301,302,303,401,402,403; of course, the actual train tickets you're looking at are much more complicated. In any case, you've extracted just the numbers in such a way that the first number is always the same specific field, the second number is always a different specific field, and so on - you just don't know what each position actually means!
 
-Start by determining which tickets are completely invalid; these are tickets that contain values which aren't valid for any field. Ignore your ticket for now.
+Src by determining which tickets are completely invalid; these are tickets that contain values which aren't valid for any field. Ignore your ticket for now.
 
 For example, suppose you have the following notes:
 
