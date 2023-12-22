@@ -1,13 +1,178 @@
 package day21
 
-import "mrose.de/aoc/utility"
+import (
+	"mrose.de/aoc/utility"
+)
+
+type NodeType string
+
+const (
+	garden NodeType = "."
+	rock   NodeType = "#"
+)
+
+type Node struct {
+	Type       NodeType
+	N, E, S, W *Node
+	start      bool
+}
+
+var remainingSteps = 64
 
 func Solve() (p1, p2 int) {
 
-	input := utility.StrArr(utility.TestInput(2023, 21))
-	p1 = len(input)
+	input := utility.StrArr(utility.Input(2023, 21))
+
+	startNode := parseNodes(input)
+	p1 = numOfPossibleNodes(startNode)
 
 	return
+}
+
+func numOfPossibleNodes(node *Node) int {
+	currentNodes := []*Node{node}
+	for remainingSteps != 0 {
+		currentNodes = possibilities(currentNodes)
+		remainingSteps--
+	}
+	return len(currentNodes)
+}
+
+func parseNodes(input []string) *Node {
+	var start, current, prev *Node
+	prevLine := make([]*Node, len(input[0]), len(input[0]))
+	currentLine := make([]*Node, len(input[0]), len(input[0]))
+
+	for _, line := range input {
+		for j, r := range line {
+			prev = current
+			current = &Node{
+				Type:  nodeType(r),
+				N:     prevLine[j],
+				W:     prev,
+				start: r == 'S',
+			}
+			if prev != nil {
+				prev.E = current
+			}
+			if prevLine[j] != nil {
+				prevLine[j].S = current
+			}
+			currentLine[j] = current
+			if current.start {
+				start = current
+			}
+		}
+		prevLine = currentLine
+		currentLine = make([]*Node, len(input[0]), len(input[0]))
+	}
+
+	return start
+}
+
+func parseNodesWithInfMap(input []string) *Node {
+	var start, current, prev *Node
+	prevLine := make([]*Node, len(input[0]), len(input[0]))
+	currentLine := make([]*Node, len(input[0]), len(input[0]))
+	borderN := make([]*Node, len(input[0]), len(input[0]))
+	borderE := make([]*Node, len(input), len(input))
+	borderS := make([]*Node, len(input[0]), len(input[0]))
+	borderW := make([]*Node, len(input), len(input))
+	for y, line := range input {
+		for x, r := range line {
+			prev = current
+			current = &Node{
+				Type:  nodeType(r),
+				N:     prevLine[x],
+				W:     prev,
+				start: r == 'S',
+			}
+			if prev != nil {
+				prev.E = current
+			}
+			if prevLine[x] != nil {
+				prevLine[x].S = current
+			}
+			currentLine[x] = current
+			if current.start {
+				start = current
+			}
+
+			if y == 0 {
+				borderN[x] = current
+			}
+			if y == len(input)-1 {
+				borderS[x] = current
+			}
+			if x == 0 {
+				borderW[y] = current
+			}
+			if x == len(line)-1 {
+				borderE[y] = current
+			}
+		}
+		prevLine = currentLine
+		currentLine = make([]*Node, len(input[0]), len(input[0]))
+	}
+
+	for i, node := range borderN {
+		node.N = borderS[i]
+		borderS[i] = node
+	}
+
+	for i, node := range borderE {
+		node.E = borderW[i]
+		borderW[i] = node
+	}
+
+	return start
+}
+
+func nodeType(r rune) NodeType {
+	if r == '.' {
+		return garden
+	}
+	if r == '#' {
+		return rock
+	}
+
+	return garden
+}
+
+func possibilities(nodes []*Node) []*Node {
+	p := make([]*Node, 0)
+	for _, node := range nodes {
+		if node.N.Type == garden {
+			if !containsNode(p, node.N) {
+				p = append(p, node.N)
+			}
+		}
+		if node.E.Type == garden {
+			if !containsNode(p, node.E) {
+				p = append(p, node.E)
+			}
+		}
+		if node.S.Type == garden {
+			if !containsNode(p, node.S) {
+				p = append(p, node.S)
+			}
+		}
+		if node.W.Type == garden {
+			if !containsNode(p, node.W) {
+				p = append(p, node.W)
+			}
+		}
+	}
+	return p
+}
+
+func containsNode(nodes []*Node, current *Node) bool {
+	for _, node := range nodes {
+		if node == current {
+			return true
+		}
+	}
+	return false
 }
 
 /*
