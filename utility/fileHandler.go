@@ -162,6 +162,13 @@ func Input(year int, day int) string {
 	return InputToString(fmt.Sprintf("%v/assets/day%v.txt", year, day))
 }
 
+func InputAsStrArr(year int, day int, test bool) []string {
+	if test {
+		return StrArr(TestInput(year, day))
+	}
+	return StrArr(Input(year, day))
+}
+
 func TestInput(year int, day int) string {
 	return InputToString(fmt.Sprintf("%v/assets/day%v_test.txt", year, day))
 }
