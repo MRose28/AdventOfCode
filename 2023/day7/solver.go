@@ -1,7 +1,171 @@
 package day7
 
-func Solve() (part1, part2 int) {
+import (
+	"mrose.de/aoc/utility"
+	"slices"
+	"strconv"
+	"strings"
+)
+
+type Hand struct {
+	Cards []Card
+	Bid   Bid
+	Rank  int
+}
+
+func (h Hand) Strength() HandStrength {
+	m := make(map[Card]int)
+	var jokers int
+	for _, card := range h.Cards {
+		if card == Joker {
+			jokers++
+			continue
+		}
+		m[card]++
+	}
+	maxAmount := 0
+	for _, n := range m {
+		if n > maxAmount {
+			maxAmount = n
+		}
+	}
+	switch maxAmount + jokers {
+	case 5:
+		return FiveOfAKind
+	case 4:
+		return FourOfAKind
+	case 3:
+		if len(m) == 2 {
+			return FullHouse
+		}
+		return ThreeOfAKind
+	case 2:
+		if len(m) == 3 {
+			return TwoPair
+		}
+		return Pair
+	case 1:
+		return HighCard
+	default:
+		return 0
+	}
+
+}
+func (h Hand) Value() int {
+	return int(h.Strength()) * int(h.Bid)
+}
+
+type Bid int
+type Card int
+
+const (
+	Joker Card = iota + 1
+	Two
+	Three
+	Four
+	Five
+	Six
+	Seven
+	Eight
+	Nine
+	Ten
+	Queen
+	King
+	Ace
+)
+
+type HandStrength int
+
+const (
+	HighCard HandStrength = iota + 1
+	Pair
+	TwoPair
+	ThreeOfAKind
+	FullHouse
+	FourOfAKind
+	FiveOfAKind
+)
+
+func Solve() (p1, p2 int) {
+
+	input := utility.InputAsStrArr(2023, 7, false)
+	hands := parseHands(input)
+	p1 = play(hands)
+
 	return
+}
+
+func play(hands []Hand) int {
+	slices.SortFunc(hands, func(a, b Hand) int {
+		if a.Strength() < b.Strength() {
+			return -1
+		}
+		if a.Strength() > b.Strength() {
+			return 1
+		}
+		for i := 0; i < 5; i++ {
+			if a.Cards[i] < b.Cards[i] {
+				return -1
+			}
+			if a.Cards[i] > b.Cards[i] {
+				return 1
+			}
+		}
+		return 0
+	})
+	var res int
+	for i, hand := range hands {
+		res += int(hand.Bid) * (i + 1)
+	}
+	return res
+}
+
+func parseHands(input []string) []Hand {
+	hands := make([]Hand, len(input))
+	for hIdx, s := range input {
+		cardInput := strings.Split(s, " ")[0]
+		cards := make([]Card, len(cardInput))
+		bidValue, _ := strconv.Atoi(strings.Split(s, " ")[1])
+
+		for cIdx, c := range cardInput {
+			var card Card
+			switch c {
+			case '2':
+				card = Two
+			case '3':
+				card = Three
+			case '4':
+				card = Four
+			case '5':
+				card = Five
+			case '6':
+				card = Six
+			case '7':
+				card = Seven
+			case '8':
+				card = Eight
+			case '9':
+				card = Nine
+			case 'T':
+				card = Ten
+			case 'J':
+				card = Joker
+			case 'Q':
+				card = Queen
+			case 'K':
+				card = King
+			case 'A':
+				card = Ace
+			}
+			cards[cIdx] = card
+		}
+
+		hands[hIdx] = Hand{
+			Cards: cards,
+			Bid:   Bid(bidValue),
+		}
+	}
+	return hands
 }
 
 /*
