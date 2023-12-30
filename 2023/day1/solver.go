@@ -8,7 +8,7 @@ import (
 )
 
 func Solve() (part1, part2 int) {
-	i := utility.StrArr(utility.Input(2023, 1))
+	i := utility.InputAsStrArr(2023, 1, false)
 
 	part1 = findNumbers(i)
 	// no extra solution for part 1

@@ -1,11 +1,133 @@
 package day9
 
-import "mrose.de/aoc/utility"
+import (
+	"mrose.de/aoc/utility"
+	"strconv"
+	"strings"
+)
+
+type TimeSeries struct {
+	original    []int
+	differences [][]int
+}
+
+type Direction string
+
+const (
+	Forwards  Direction = "forward"
+	Backwards Direction = "backwards"
+)
+
+func (ts TimeSeries) extrapolate(direction Direction) TimeSeries {
+	if direction == Forwards {
+		return ts.forwards()
+	} else if direction == Backwards {
+		return ts.backwards()
+	}
+
+	return ts
+}
+
+func (ts TimeSeries) forwards() TimeSeries {
+	for i := len(ts.differences) - 2; i >= 0; i-- {
+		current := ts.differences[i]
+		current = append(current, current[len(current)-1]+ts.differences[i+1][len(ts.differences[i+1])-1])
+		ts.differences[i] = current
+	}
+
+	ts.original = append(ts.original, ts.original[len(ts.original)-1]+ts.differences[0][len(ts.differences[0])-1])
+
+	return ts
+}
+
+func (ts TimeSeries) backwards() TimeSeries {
+	for i := len(ts.differences) - 2; i >= 0; i-- {
+		current := ts.differences[i]
+		current = append([]int{current[0] - ts.differences[i+1][0]}, current...)
+		ts.differences[i] = current
+	}
+
+	ts.original = append([]int{ts.original[0] - ts.differences[0][0]}, ts.original...)
+
+	return ts
+}
+
+func differences(arr []int) []int {
+	d := make([]int, 0)
+	for i := 1; i < len(arr); i++ {
+		d = append(d, arr[i]-arr[i-1])
+	}
+
+	return d
+}
+
+func allDifferences(ts []int) [][]int {
+	allDiffs := make([][]int, 0)
+	current := ts
+	for {
+		currentDiffs := differences(current)
+		allDiffs = append(allDiffs, currentDiffs)
+		if allZero(currentDiffs) {
+			break
+		} else {
+			current = currentDiffs
+		}
+	}
+
+	return allDiffs
+}
+
+func allZero(arr []int) bool {
+	for _, n := range arr {
+		if n != 0 {
+			return false
+		}
+	}
+	return true
+}
 
 func Solve() (p1, p2 int) {
-	utility.InputAsStrArr(2023, 9, true)
-
+	input := utility.InputAsStrArr(2023, 9, false)
+	ts := parseTimeSeries(input)
+	p1 = solveBoth(ts, Forwards)
+	p2 = solveBoth(ts, Backwards)
 	return
+}
+
+func solveBoth(ts []TimeSeries, direction Direction) int {
+	for i, t := range ts {
+		ts[i] = t.extrapolate(direction)
+	}
+	var sum int
+	if direction == Forwards {
+		for _, t := range ts {
+			sum += t.original[len(t.original)-1]
+		}
+	} else if direction == Backwards {
+		for _, t := range ts {
+			sum += t.original[0]
+		}
+	}
+
+	return sum
+}
+
+func parseTimeSeries(input []string) []TimeSeries {
+	res := make([]TimeSeries, len(input))
+	for i, line := range input {
+		original := make([]int, 0)
+
+		for _, s := range strings.Split(line, " ") {
+			n, _ := strconv.Atoi(s)
+			original = append(original, n)
+		}
+		res[i] = TimeSeries{
+			original:    original,
+			differences: allDifferences(original),
+		}
+	}
+
+	return res
 }
 
 /*

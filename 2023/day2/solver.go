@@ -116,15 +116,15 @@ func validateGame(bags []Reveals) bool {
 }
 
 func parseBags(input []string) []Reveals {
-	bags := make([]Reveals, 0)
+	reveals := make([]Reveals, 0)
 	for _, s := range input {
-		bags = append(bags, parseBag(s))
+		reveals = append(reveals, parseReveal(s))
 	}
 
-	return bags
+	return reveals
 }
 
-func parseBag(s string) Reveals {
+func parseReveal(s string) Reveals {
 	colorMap := make(map[Color]int, 3)
 	colorSections := strings.Split(s, ",")
 
