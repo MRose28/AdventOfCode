@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	dayToSolve "mrose.de/aoc/2020/day18"
+	dayToSolve "mrose.de/aoc/2024/day1"
 )
 
 // Solve the puzzle

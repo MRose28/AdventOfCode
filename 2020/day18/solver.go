@@ -5,7 +5,7 @@
 package day18
 
 import (
-	"fmt"
+	"strconv"
 	"strings"
 
 	"mrose.de/aoc/utility"
@@ -23,7 +23,15 @@ func Solve() (p1, p2 int) {
 
 func calc(s string) int {
 	s = strings.ReplaceAll(s, " ", "")
-	fmt.Println(s)
+	numbers := []int{}
+	operators := []string{}
+	for _, v := range s {
+		if v == '*' || v == '+' {
+			n, _ := strconv.Atoi(strings.Split(s, string(v))[0])
+			numbers = append(numbers, n)
+			operators = append(operators, string(v))
+		}
+	}
 
 	return 2
 }
