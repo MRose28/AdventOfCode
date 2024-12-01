@@ -1,5 +1,105 @@
 package day12
 
+import (
+	"mrose.de/aoc/utility"
+	"strconv"
+	"strings"
+)
+
+type Status int
+
+const (
+	Operational Status = iota
+	Damaged
+	Unknown
+)
+
+type Spring struct {
+	Operational Status
+	Next        *Spring
+	Prev        *Spring
+}
+
+type Configuration struct {
+	StartSpring *Spring
+	Hints       []int
+}
+
+func (c Configuration) numOfValidConfigurations() int {
+	var stop bool
+	for {
+		
+
+		if stop {
+			break
+		}
+	}
+
+	return -1
+}
+
+func Solve() (p1, p2 int) {
+	input := utility.InputAsStrArr(2023, 12, true)
+	configurations := parseConfigurations(input)
+	p1 = Part1(configurations)
+	return
+}
+
+func Part1(configurations []Configuration) int {
+	var n int
+
+	for _, configuration := range configurations {
+		n += configuration.numOfValidConfigurations()
+	}
+
+	return n
+}
+
+func parseConfigurations(input []string) []Configuration {
+	configurations := make([]Configuration, 0)
+	for _, line := range input {
+		var currentConfig Configuration
+		var current, prev *Spring
+		for i, r := range strings.Split(line, " ")[0] {
+			if current != nil {
+				prev = current
+			}
+			var operational Status
+			switch r {
+			case '.':
+				operational = Operational
+			case '#':
+				operational = Damaged
+			default:
+				operational = Unknown
+
+			}
+			current = &Spring{
+				Operational: operational,
+			}
+			if i == 0 {
+				currentConfig.StartSpring = current
+			}
+
+			if prev != nil {
+				current.Prev = prev
+				prev.Next = current
+			}
+		}
+
+		numOfDamagedSprings := make([]int, 0)
+		for _, s := range strings.Split(strings.Split(line, " ")[1], ",") {
+			n, _ := strconv.Atoi(s)
+			numOfDamagedSprings = append(numOfDamagedSprings, n)
+		}
+		currentConfig.Hints = numOfDamagedSprings
+
+		configurations = append(configurations, currentConfig)
+	}
+
+	return configurations
+}
+
 /*
 --- Day 12: Hot Springs ---
 You finally reach the hot springs! You can see steam rising from secluded areas attached to the primary, ornate building.

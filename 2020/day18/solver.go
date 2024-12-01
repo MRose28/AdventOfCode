@@ -6,23 +6,24 @@ package day18
 
 import (
 	"fmt"
-	"mrose.de/aoc/utility"
 	"strings"
+
+	"mrose.de/aoc/utility"
 )
 
-func Solve() (result int) {
-	input := utility.Input2020Day18()
-	input = strings.ReplaceAll(input, " ", "")
-	lines := make([]InputLine, 0)
-	for _, v := range utility.StrArr(input) {
-		lines = append(lines, InputLine{
-			input: v,
-		})
-	}
+func Solve() (p1, p2 int) {
+	input := utility.InputAsStrArr(2020, 18, true)
 
-	for i, v := range lines {
-		print(fmt.Sprintf("Line %v:", i),v.getResult(), "\n")
+	for _, v := range input {
+		p1 += calc(v)
 	}
 
 	return
+}
+
+func calc(s string) int {
+	s = strings.ReplaceAll(s, " ", "")
+	fmt.Println(s)
+
+	return 2
 }

@@ -26,10 +26,7 @@ type TestStr struct {
 }
 
 func Solve() (p1, p2 int) {
-	a := TestStr{}
-	print(a.s)
-
-	input := utility.StrArr(utility.TestInput(2023, 11))
+	input := utility.InputAsStrArr(2023, 11, true)
 
 	m := gmap(input)
 	m = expandEmptyRowsCols(m)

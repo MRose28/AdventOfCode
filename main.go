@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	dayToSolve "mrose.de/aoc/2023/day9"
 	"time"
+
+	dayToSolve "mrose.de/aoc/2020/day18"
 )
 
 // Solve the puzzle

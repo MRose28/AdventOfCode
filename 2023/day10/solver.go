@@ -1,6 +1,10 @@
 package day10
 
+import "mrose.de/aoc/utility"
+
 func Solve() (p1, p2 int) {
+	input := utility.InputAsStrArr(2023, 10, true)
+	p1 = len(input)
 	return
 }
 
