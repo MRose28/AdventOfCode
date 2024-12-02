@@ -2,8 +2,8 @@ package utility
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
+	"os"
 	"strings"
 )
 
@@ -12,7 +12,7 @@ func InputToString(path string) string {
 
 	// Read entire file content, giving us little control but
 	// making it very simple. No need to close the file.
-	content, err := ioutil.ReadFile(path)
+	content, err := os.ReadFile(path)
 	if err != nil {
 		log.Fatalf("could not read file. \npath: %v\nerror: %e", path, err)
 	}
